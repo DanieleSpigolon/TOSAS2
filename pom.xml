@@ -38,7 +38,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>   
+      </plugin>  
       <plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -78,7 +78,7 @@
 				<configuration>
 					<sourceEncoding>UTF-8</sourceEncoding>
 				</configuration>
-			</plugin>    
+			</plugin>   
     </plugins>
   </build>   
 </project>
