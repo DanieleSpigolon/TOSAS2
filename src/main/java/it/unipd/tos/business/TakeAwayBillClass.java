@@ -16,9 +16,10 @@ public class TakeAwayBillClass implements TakeAwayBill {
             throws TakeAwayBillException {
 
         double totalPrice = 0.0;
-        double lowPrice= Double.MAX_VALUE;
+        double lowPrice = Double.MAX_VALUE;
         double totalDiscount = 0.0;
         int gelatiNumber = 0;
+        double totalIceCreamAndBudin=0.0;
         
         for(MenuItem itemOrdered : itemsOrdered) {
             totalPrice += itemOrdered.getPrice();
@@ -27,12 +28,21 @@ public class TakeAwayBillClass implements TakeAwayBill {
                 if(itemOrdered.getPrice() < lowPrice) {
                     lowPrice = itemOrdered.getPrice();
                 }  
+                
+                totalIceCreamAndBudin += itemOrdered.getPrice();
                gelatiNumber++;
             }  
+            if(itemOrdered.getItemType() == ItemType.Budini) {
+                totalIceCreamAndBudin += itemOrdered.getPrice();
+            }
         }
         
         if(gelatiNumber > 5) {
             totalDiscount += lowPrice / 2.0;
+        }
+        
+        if(totalIceCreamAndBudin > 50.0) {
+            totalDiscount += totalPrice * 0.10;
         }
         return totalPrice - totalDiscount;
     }
