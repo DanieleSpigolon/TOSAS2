@@ -98,4 +98,30 @@ public class TakeAwayBillClassTest {
 
         takeAwayBill.getOrderPrice(itemsOrdered,user);
     }
+    @Test
+    public void testForOrderWithPriceMinorThan10euro() {
+        List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
+        User user = new User("110","Daniele","Spigolon",21);
+        for(int i = 0; i < 3; ++i) {
+            itemsOrdered.add(new MenuItem(ItemType.Bevande, "LemonSoda", 1.5));
+        }
+
+        try {
+            assertEquals(5.0, takeAwayBill.getOrderPrice(itemsOrdered,user), 0);
+        } catch (TakeAwayBillException e) {
+            fail("TakeAwayBillException thrown");
+        }
+    }
+
+    @Test
+    public void testOrderWith0ElementthereforeWithoutElements() {
+        List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
+        User user = new User("110","Daniele","Spigolon",21);
+
+        try {
+            assertEquals(0.0, takeAwayBill.getOrderPrice(itemsOrdered,user), 0);
+        } catch (TakeAwayBillException e) {
+            fail("TakeAwayBillException thrown");
+        }
+    }
 }
