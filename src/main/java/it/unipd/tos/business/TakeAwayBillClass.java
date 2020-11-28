@@ -9,6 +9,10 @@ import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.ItemType;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
+import it.unipd.tos.model.InvoiceTotal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class TakeAwayBillClass implements TakeAwayBill {
 
@@ -52,6 +56,33 @@ public class TakeAwayBillClass implements TakeAwayBill {
             totalDiscount -= 0.5; //per aggiungere ricorda di mettere meno
         }
         return totalPrice - totalDiscount;
+    }
+    
+    public List<InvoiceTotal> getGratisInvoce(List<InvoiceTotal> invoice){
+
+        List<InvoiceTotal> gratis = new ArrayList<InvoiceTotal>();
+        //attenzione alle ore in secondi
+        for (int i = 0; i < invoice.size(); i++) {
+            if(invoice.get(i).getUser().getEta()<18 &&
+             !gratis.contains(invoice.get(i)) &&
+             invoice.get(i).gettempoInSecondi()> 64800 &&
+             invoice.get(i).gettempoInSecondi()< 68400)
+            {
+                gratis.add(invoice.get(i));
+            }
+        }
+
+        if(gratis.size()>9){
+            long times = System.nanoTime();
+            Collections.shuffle(gratis, new Random(times));
+            //mettiamo a zero i prezzi
+            gratis = gratis.subList(0,10);
+            for (InvoiceTotal i : gratis) {
+                i.setPrice(0.0);
+            }
+        }
+
+        return gratis;
     }
 
 }
