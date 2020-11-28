@@ -17,16 +17,16 @@ public class User {
         this.cognome=cognome;
         this.eta=eta;
     }
-    String getId(){
+    public String getId(){
         return id;
     }
-    String getNome(){
+    public String getNome(){
         return nome;
     }
-    String getCognome(){
+    public String getCognome(){
         return cognome;
     }
-    int getEta(){
+    public int getEta(){
         return eta;
     }
 }
