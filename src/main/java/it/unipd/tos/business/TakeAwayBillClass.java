@@ -25,10 +25,16 @@ public class TakeAwayBillClass implements TakeAwayBill {
         int gelatiNumber = 0;
         double totalIceCreamAndBudin=0.0;
         
+        if(itemsOrdered == null) {
+            throw new TakeAwayBillException("La lista non esiste, e' nulla"); 
+        }
         if(itemsOrdered.size() > 30) {
             throw new TakeAwayBillException("Non consentito, >30 elementi di ordinazione");
         }
-        
+        if(itemsOrdered.contains(null)) {
+            throw new TakeAwayBillException
+                ("Attenzione!, lista contiene elementi nulli"); 
+        }
         for(MenuItem itemOrdered : itemsOrdered) {
             totalPrice += itemOrdered.getPrice();
 

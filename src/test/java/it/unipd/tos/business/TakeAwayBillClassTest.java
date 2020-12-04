@@ -99,6 +99,25 @@ public class TakeAwayBillClassTest {
 
         takeAwayBill.getOrderPrice(itemsOrdered,user);
     }
+    @Test(expected = TakeAwayBillException.class) 
+    public void testNullList() 
+            throws TakeAwayBillException {
+
+        List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
+        itemsOrdered=null;
+        User user = new User("110","Daniele","Spigolon",21);
+
+        takeAwayBill.getOrderPrice(itemsOrdered,user);
+    }
+    @Test(expected = TakeAwayBillException.class) 
+    public void nullItemInListTest() throws TakeAwayBillException{
+        List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
+        User user = new User("110","Daniele","Spigolon",21);
+        itemsOrdered.add(new MenuItem(ItemType.Gelati, "CoppaNafta", 2.50));
+        itemsOrdered.add(null);
+
+        takeAwayBill.getOrderPrice(itemsOrdered,user);
+    }
     @Test
     public void testForOrderWithPriceMinorThan10euro() {
         List<MenuItem> itemsOrdered = new ArrayList<MenuItem>();
